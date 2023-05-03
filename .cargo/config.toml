@@ -1,3 +1,8 @@
 [alias]
 xtask = "run --package xtask --"
 integration-test = "test --features integration --profile integration --workspace --test integration"
+
+[patch.crates-io.tree-sitter]
+git = "https://github.com/GabrielDertoni/tree-sitter"
+branch = "tags-from-tree"
+# path = "/home/dertoni/.local/src/github.com/tree-sitter/tree-sitter"

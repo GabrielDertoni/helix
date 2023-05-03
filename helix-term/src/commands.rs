@@ -1,6 +1,7 @@
 pub(crate) mod dap;
 pub(crate) mod lsp;
 pub(crate) mod typed;
+pub(crate) mod ts;
 
 pub use dap::*;
 use helix_vcs::Hunk;
@@ -8,6 +9,7 @@ pub use lsp::*;
 use tokio::sync::oneshot;
 use tui::widgets::Row;
 pub use typed::*;
+pub use ts::*;
 
 use helix_core::{
     char_idx_at_visual_offset, comment,
@@ -299,6 +301,7 @@ impl MappableCommand {
         buffer_picker, "Open buffer picker",
         jumplist_picker, "Open jumplist picker",
         symbol_picker, "Open symbol picker",
+        // ts_symbol_picker, "Open tree-sitter symbol picker",
         select_references_to_symbol_under_cursor, "Select symbol references",
         workspace_symbol_picker, "Open workspace symbol picker",
         diagnostics_picker, "Open diagnostic picker",

@@ -116,6 +116,8 @@ pub struct LanguageConfiguration {
     pub(crate) indent_query: OnceCell<Option<Query>>,
     #[serde(skip)]
     pub(crate) textobject_query: OnceCell<Option<TextObjectQuery>>,
+    #[serde(skip)]
+    pub(crate) tags_query: OnceCell<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub debugger: Option<DebugAdapterConfig>,
 
@@ -525,6 +527,19 @@ impl LanguageConfiguration {
             .get_or_init(|| {
                 self.load_query("textobjects.scm")
                     .map(|query| TextObjectQuery { query })
+            })
+            .as_ref()
+    }
+
+    pub fn tags_query(&self) -> Option<&String> {
+        self.tags_query
+            .get_or_init(|| {
+                let query_text = read_query(&self.language_id, "tags.scm");
+                if query_text.is_empty() {
+                    None
+                } else {
+                    Some(query_text)
+                }
             })
             .as_ref()
     }
@@ -1441,6 +1456,7 @@ impl<'a> Iterator for ChunksBytes<'a> {
     }
 }
 
+#[derive(Clone, Copy)]
 pub struct RopeProvider<'a>(pub RopeSlice<'a>);
 impl<'a> TextProvider<'a> for RopeProvider<'a> {
     type I = ChunksBytes<'a>;

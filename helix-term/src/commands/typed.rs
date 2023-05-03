@@ -2759,6 +2759,13 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
             fun: clear_register,
             signature: CommandSignature::none(),
         },
+        TypableCommand {
+            name: "ts-symbol-picker",
+            aliases: &[],
+            doc: "Tree-sitter symbol picker",
+            fun: crate::commands::ts::ts_symbol_picker_command,
+            signature: CommandSignature::none(),
+        },
     ];
 
 pub static TYPABLE_COMMAND_MAP: Lazy<HashMap<&'static str, &'static TypableCommand>> =
